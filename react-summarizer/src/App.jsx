@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 function App() {
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [url, setUrl] = useState('');
   const [summary, setSummary] = useState('');
   const [loading, setLoading] = useState(false);
@@ -9,13 +10,17 @@ function App() {
   const handleSummarize = async () => {
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/summarize', { url });
-      setSummary(res.data.summary);
+      const response = await axios.post(
+        `${backendURL}/summarize`,
+        { url }
+      );
+      setSummary(response.data.summary);
     } catch (err) {
       setSummary('Error: ' + err.message);
     }
     setLoading(false);
   };
+  
 
   return (
     <div style={{ padding: '2rem' }}>
