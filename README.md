@@ -21,7 +21,7 @@ web-summarizer/
 │   │   ├── gemini.py
 │   │   └── scraper.py
 │   └── requirements.txt
-├── web-summarizer-frontend/
+├── react-summarizer/
 │   ├── src/
 │   │   └── App.jsx
 │   ├── .env
@@ -63,7 +63,7 @@ web-summarizer/
 1. Navigate to the frontend folder:
 
    ```bash
-   cd web-summarizer-frontend
+   cd react-summarizer
    ```
 
 2. Install dependencies:
@@ -124,7 +124,3 @@ web-summarizer/
 5. **Set `GEMINI_API_KEY`** in Cloud Run > Service > Edit & Deploy New Revision > Add Environment Variable.
 
 ---
-
-## License
-
-This project is licensed under the MIT License.
