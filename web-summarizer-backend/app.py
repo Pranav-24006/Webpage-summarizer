@@ -19,19 +19,29 @@ def summarize():
         return jsonify({"error": str(e)}), 500
 
 @app.route('/upload', methods=['POST'])
-def upload():
+def upload_file():
     try:
         if 'file' not in request.files:
-            return jsonify({"error": "No file provided"}), 400
-
+            return jsonify({"error": "No file uploaded"}), 400
+        
         file = request.files['file']
         if file.filename == '':
             return jsonify({"error": "No selected file"}), 400
+        
+        mode = request.form.get("mode", "short") 
 
-        mode = request.form.get("mode", "short")
-        content = scrape_text(file)
+        # Save the file temporarily
+        filepath = os.path.join("temp", file.filename)
+        os.makedirs("temp", exist_ok=True)
+        file.save(filepath)
+
+        # Extract text using scrape_text for PDFs/DOCX
+        content = scrape_text(filepath)
         summary = summarize_text(content, mode)
+
+        os.remove(filepath)
         return jsonify({"summary": summary})
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
