@@ -27,7 +27,7 @@ function App() {
       if (inputType === 'url') {
         const res = await axios.post(`${backendURL}/summarize`, { url, mode });
         setSummary(res.data.summary);
-      } else if (inputType === 'file') {
+      } else if (inputType === 'document') {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('mode', mode);
