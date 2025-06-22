@@ -5,6 +5,7 @@ export default function InputToggle({ inputType, setInputType }) {
     <div style={toggleButtons}>
       <button onClick={() => setInputType('url')} style={button(inputType === 'url')}>URL</button>
       <button onClick={() => setInputType('document')} style={button(inputType === 'document')}>Document</button>
+      <button onClick={() => setInputType('text')} style={button(inputType === 'text')}>Plain Text</button>
     </div>
   );
 }

@@ -12,9 +12,10 @@ import SummaryBox from './components/SummaryBox';
 function App() {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
 
-  const [inputType, setInputType] = useState('url');
+  const [inputType, setInputType] = useState('url'); // url | file | text
   const [url, setUrl] = useState('');
   const [file, setFile] = useState(null);
+  const [text, setText] = useState('');
   const [mode, setMode] = useState('short');
   const [summary, setSummary] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,11 +27,14 @@ function App() {
       if (inputType === 'url') {
         const res = await axios.post(`${backendURL}/summarize`, { url, mode });
         setSummary(res.data.summary);
-      } else {
+      } else if (inputType === 'file') {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('mode', mode);
         const res = await axios.post(`${backendURL}/upload`, formData);
+        setSummary(res.data.summary);
+      } else if (inputType === 'text') {
+        const res = await axios.post(`${backendURL}/text`, { text, mode });
         setSummary(res.data.summary);
       }
     } catch (err) {
@@ -42,19 +46,21 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 flex items-center justify-center px-4">
       <div className="w-full max-w-xl bg-white rounded-2xl shadow-xl p-8 text-center space-y-6">
-      <Header />
-      <InputToggle inputType={inputType} setInputType={setInputType} />
-      <InputField
-        inputType={inputType}
-        url={url}
-        setUrl={setUrl}
-        setFile={setFile}
-      />
-      <SummaryModeSelector mode={mode} setMode={setMode} />
-      <SubmitButton loading={loading} handleSummarize={handleSummarize} />
-      <SummaryBox summary={summary} />
+        <Header />
+        <InputToggle inputType={inputType} setInputType={setInputType} />
+        <InputField
+          inputType={inputType}
+          url={url}
+          setUrl={setUrl}
+          setFile={setFile}
+          text={text}
+          setText={setText}
+        />
+        <SummaryModeSelector mode={mode} setMode={setMode} />
+        <SubmitButton loading={loading} handleSummarize={handleSummarize} />
+        <SummaryBox summary={summary} />
+      </div>
     </div>
-</div>
   );
 }
 

@@ -44,6 +44,23 @@ def upload_file():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+@app.route('/text', methods=['POST'])
+def summarize_plain():
+    data = request.get_json()
+    if not data or 'text' not in data or 'mode' not in data:
+        return jsonify({'error': 'Missing text or mode in request'}), 400
+
+    text = data['text']
+    mode = data['mode']
+
+    if len(text.strip()) == 0:
+        return jsonify({'error': 'Empty text provided'}), 400
+
+    try:
+        summary = summarize_text(text, mode)
+        return jsonify({'summary': summary}), 200
+    except Exception as e:
+        return jsonify({'error': f'Failed to summarize text: {str(e)}'}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8080))
