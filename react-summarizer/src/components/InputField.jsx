@@ -11,7 +11,7 @@ export default function InputField({ inputType, url, setUrl, setFile, text, setT
           placeholder="Enter URL"
           style={inputField}
         />
-      ) : inputType === 'file' ? (
+      ) : inputType === 'document' ? (
         <input
           type="file"
           onChange={(e) => setFile(e.target.files[0])}
