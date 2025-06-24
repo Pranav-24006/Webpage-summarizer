@@ -1,17 +1,22 @@
-# Webpage Summarizer
+# 🌐 AI Powered Summarizer
 
-This is a full-stack web application that allows users to input the URL of a webpage and receive a concise summary of its content. The application uses a Python Flask backend with Gemini API for summarization and a React frontend for user interaction.
+A full-stack web application that lets users **input a URL, upload a document**, or **paste plain text**, and receive a concise summary in either **short** or **detailed** formats. The summarization is powered by **Gemini API**, and the system includes a responsive React frontend and a robust Flask backend.
 
-## Features
+---
 
-- 🔗 Input a webpage URL
-- 🧠 Summarizes using Google's Gemini API
-- 🌐 Frontend built with React
-- 🐍 Backend built with Flask
-- ☁️ Backend deployable via Google Cloud Platform (GCP)
-- ⚡ Frontend deployable via Vercel
+## 🚀 Features
 
-## Project Structure
+* 🔗 Accepts **URL**, **file upload**, or **plain text** input
+* 🧠 Summarization powered by **Google’s Gemini API**
+* ⚡ **Short** or **detailed** summary options
+* 🌐 Frontend built using **React** & **Tailwind CSS**
+* 🐍 Backend built with **Flask (Python)**
+* ☁️ Deployable on **Google Cloud Platform** (GCP)
+* 🎯 Frontend deployable via **Vercel**
+
+---
+
+## 📁 Project Structure
 
 ```
 web-summarizer/
@@ -28,9 +33,11 @@ web-summarizer/
 │   └── vite.config.js
 ```
 
-## Setup Instructions
+---
 
-### Backend
+## ⚙️ Setup Instructions
+
+### 🔙 Backend (Flask)
 
 1. Navigate to the backend folder:
 
@@ -44,13 +51,13 @@ web-summarizer/
    pip install -r requirements.txt
    ```
 
-3. Create a `.env` file:
+3. Create a `.env` file and add your Gemini API key:
 
-   ```env
+   ```
    GEMINI_API_KEY=your_api_key_here
    ```
 
-4. Run the server:
+4. Run the Flask server:
 
    ```bash
    python app.py
@@ -58,7 +65,7 @@ web-summarizer/
 
 ---
 
-### Frontend
+### 🖥️ Frontend (React + Vite)
 
 1. Navigate to the frontend folder:
 
@@ -72,9 +79,9 @@ web-summarizer/
    npm install
    ```
 
-3. Create a `.env` file:
+3. Create a `.env` file and add your backend URL:
 
-   ```env
+   ```
    VITE_BACKEND_URL=https://your-backend-url
    ```
 
@@ -86,41 +93,54 @@ web-summarizer/
 
 ---
 
-## Deployment
+## 🚀 Deployment
 
-### Frontend (Vercel)
+### ⚡ Frontend (Vercel)
 
-1. Push your frontend code to GitHub.
-2. Go to [vercel.com](https://vercel.com) and import your GitHub project.
-3. Set the environment variable `VITE_BACKEND_URL` in the Vercel dashboard.
-4. Deploy.
+1. Push your frontend code to GitHub
+2. Go to [vercel.com](https://vercel.com) and import your GitHub project
+3. Add the environment variable `VITE_BACKEND_URL` in the Vercel dashboard
+4. Deploy with one click
 
 ---
 
-### Backend (Google Cloud Run via GCP)
+### ☁️ Backend (Google Cloud Run)
 
-1. **Install Google Cloud SDK**  
-   [Download and install gcloud](https://cloud.google.com/sdk/docs/install)
+1. **Install Google Cloud SDK**
+   → [Download & Install](https://cloud.google.com/sdk/docs/install)
 
-2. **Authenticate:**
+2. Authenticate your account:
 
    ```bash
    gcloud auth login
    ```
 
-3. **Set your project:**
+3. Set your GCP project:
 
    ```bash
    gcloud config set project YOUR_PROJECT_ID
    ```
 
-4. **Deploy:**
+4. Submit a build:
 
    ```bash
    gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/web-summarizer
-   gcloud run deploy web-summarizer      --image gcr.io/YOUR_PROJECT_ID/web-summarizer      --platform managed      --region us-central1      --allow-unauthenticated
    ```
 
-5. **Set `GEMINI_API_KEY`** in Cloud Run > Service > Edit & Deploy New Revision > Add Environment Variable.
+5. Deploy the container:
+
+   ```bash
+   gcloud run deploy web-summarizer \
+     --image gcr.io/YOUR_PROJECT_ID/web-summarizer \
+     --platform managed \
+     --region us-central1 \
+     --allow-unauthenticated
+   ```
+
+6. Add environment variables in Cloud Run:
+
+   * Go to **Cloud Run > Services > web-summarizer**
+   * Click **"Edit & Deploy New Revision"**
+   * Add: `GEMINI_API_KEY`
 
 ---
